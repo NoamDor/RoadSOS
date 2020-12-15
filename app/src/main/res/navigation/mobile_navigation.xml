@@ -32,15 +32,15 @@
     <fragment
         android:id="@+id/problemLocationFragment"
         android:name="com.example.roadsos.ui.problemLocation.ProblemLocationFragment"
-        android:label="fragment_problem_location"
-        tools:layout="@layout/fragment_problem_location" />
+        android:label="מיקום המקרה"
+        tools:layout="@layout/fragment_problem_location">
+        <action
+            android:id="@+id/action_problemLocationFragment_to_problemDetailsFragment"
+            app:destination="@id/problemDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/problemDetailsFragment"
         android:name="com.example.roadsos.ui.ProblemDetailsFragment"
         android:label="פרטים"
-        tools:layout="@layout/fragment_problem_details">
-        <argument
-            android:name="problemType"
-            app:argType="com.example.roadsos.model.ProblemType" />
-    </fragment>
+        tools:layout="@layout/fragment_problem_details"/>
 </navigation>

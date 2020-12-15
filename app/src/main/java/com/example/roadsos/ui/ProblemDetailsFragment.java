@@ -70,7 +70,7 @@ public class ProblemDetailsFragment extends Fragment {
             saveProblem();
         });
 
-        problemType = ProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
+        //problemType = ProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
         return view;
     }
 

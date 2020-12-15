@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.roadsos.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -71,6 +73,12 @@ public class ProblemLocationFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_problem_location, container, false);
+
+        Button continueBtn = view.findViewById(R.id.problem_location_continue_btn);
+        continueBtn.setOnClickListener(b -> {
+            NavDirections direction = ProblemLocationFragmentDirections.actionProblemLocationFragmentToProblemDetailsFragment();
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction);
+        });
         return view;
     }
 

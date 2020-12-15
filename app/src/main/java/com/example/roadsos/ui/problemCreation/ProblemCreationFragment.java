@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,9 +34,10 @@ public class ProblemCreationFragment extends Fragment {
     RecyclerView list;
     List<ProblemType> data = new LinkedList<ProblemType>();
     ProblemTypesListAdpater adapter;
-    Integer selectedViewPosition = 0;
+    Integer selectedViewPosition = -1;
     ProblemCreationViewModel viewModel;
     LiveData<List<ProblemType>> liveData;
+    View selectedView;
 
     public ProblemCreationFragment() {
     }
@@ -65,15 +67,18 @@ public class ProblemCreationFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                View prevViewSelected = list.findViewHolderForAdapterPosition(selectedViewPosition).itemView;
-                prevViewSelected.setBackgroundColor(Color.WHITE);
-                TextView prevTextSelected = prevViewSelected.findViewById(R.id.problem_type_name_tv);
-                prevTextSelected.setTextColor(Color.BLACK);
+                if (selectedViewPosition != -1) {
+                    View prevSelectedView = list.findViewHolderForAdapterPosition(selectedViewPosition).itemView;
+                    prevSelectedView.setBackgroundColor(Color.WHITE);
+                    TextView prevSelectedText = prevSelectedView.findViewById(R.id.problem_type_name_tv);
+                    prevSelectedText.setTextColor(Color.BLACK);
+                }
 
-                View currViewSelected = list.findViewHolderForAdapterPosition(position).itemView;
-                currViewSelected.setBackgroundColor(Color.parseColor("#33D7FF"));
-                TextView currTextSelected = currViewSelected.findViewById(R.id.problem_type_name_tv);
-                currTextSelected.setTextColor(Color.WHITE);
+                View currSelectedView = list.findViewHolderForAdapterPosition(position).itemView;
+                selectedView = currSelectedView;
+                currSelectedView.setBackgroundColor(Color.parseColor("#33D7FF"));
+                TextView currSelectedText = currSelectedView.findViewById(R.id.problem_type_name_tv);
+                currSelectedText.setTextColor(Color.WHITE);
 
                 selectedViewPosition = position;
                 continueBtn.setEnabled(true);
@@ -82,10 +87,10 @@ public class ProblemCreationFragment extends Fragment {
         });
 
         continueBtn.setOnClickListener(v -> {
-            NavDirections direction =
-                    ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemDetailsFragment(data.get(selectedViewPosition));
+//            NavDirections direction =
+//                    ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemDetailsFragment(data.get(selectedViewPosition));
             NavDirections direction2 = ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemLocationFragment();
-            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction);
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction2);
         });
 
         return view;
