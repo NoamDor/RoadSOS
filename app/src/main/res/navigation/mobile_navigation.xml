@@ -12,14 +12,32 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.roadsos.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/ProblemCreationFragment"
+        android:name="com.example.roadsos.ui.problemCreation.ProblemCreationFragment"
+        android:label="@string/title_call_for_help"
+        tools:layout="@layout/fragment_problem_creation" >
+        <action
+            android:id="@+id/action_ProblemCreationFragment_to_problemDetailsFragment"
+            app:destination="@id/problemDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.roadsos.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/problemLocationFragment"
+        android:name="com.example.roadsos.ui.problemLocation.ProblemLocationFragment"
+        android:label="fragment_problem_location"
+        tools:layout="@layout/fragment_problem_location" />
+    <fragment
+        android:id="@+id/problemDetailsFragment"
+        android:name="com.example.roadsos.ui.ProblemDetailsFragment"
+        android:label="fragment_problem_details"
+        tools:layout="@layout/fragment_problem_details" >
+        <argument
+            android:name="problemType"
+            app:argType="com.example.roadsos.model.ProblemType" />
+    </fragment>
 </navigation>
