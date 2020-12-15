@@ -62,16 +62,6 @@ public class ProblemLocationFragment extends Fragment {
                 return;
             }
             map.setMyLocationEnabled(true);
-            if (map != null) {
-                map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-                    @Override
-                    public void onMyLocationChange(Location arg0) {
-                        LatLng point = new LatLng(arg0.getLatitude(), arg0.getLongitude());
-                        map.addMarker(new MarkerOptions().position(point).title("It's Me!"));
-                        map.moveCamera(CameraUpdateFactory.newLatLng(point));
-                    }
-                });
-            }
         }
     };
 

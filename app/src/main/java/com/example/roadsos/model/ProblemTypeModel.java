@@ -18,8 +18,8 @@ public class ProblemTypeModel {
         void onComplete(T data);
     }
 
-    public void refreshProblemsList(CompListener listener) {
-        ProblemTypeFirebase.getAllProblems(new Listener<List<ProblemType>>() {
+    public void refreshProblemTypesList(CompListener listener) {
+        ProblemTypeFirebase.getAllProblemTypes(new Listener<List<ProblemType>>() {
             @SuppressLint("StaticFieldLeak")
             @Override
             public void onComplete(final List<ProblemType> data) {
@@ -46,9 +46,9 @@ public class ProblemTypeModel {
     }
 
 
-    public LiveData<List<ProblemType>> getAllProblems() {
+    public LiveData<List<ProblemType>> getAllProblemTypes() {
         LiveData<List<ProblemType>> liveData = AppLocalDb.db.problemTypeDao().getAll();
-        refreshProblemsList(null);
+        refreshProblemTypesList(null);
         return liveData;
     }
 }

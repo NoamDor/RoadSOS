@@ -14,7 +14,7 @@ public class ProblemCreationViewModel extends ViewModel {
 
     public LiveData<List<ProblemType>> getData() {
         if (liveData == null) {
-            liveData = ProblemTypeModel.instance.getAllProblems();
+            liveData = ProblemTypeModel.instance.getAllProblemTypes();
         }
 
         return liveData;

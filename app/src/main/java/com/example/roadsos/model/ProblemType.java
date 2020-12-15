@@ -10,9 +10,9 @@ import java.io.Serializable;
 public class ProblemType implements Serializable {
     @PrimaryKey
     @NonNull
-    public int id;
-    public String name;
-    public String imageUrl;
+    private int id;
+    private String name;
+    private String imageUrl;
 
     ProblemType(int id, String name, String imageUrl) {
         this.name = name;
@@ -23,14 +23,26 @@ public class ProblemType implements Serializable {
     ProblemType() {
     }
 
-    public String getName() {
-        return name;
-    }
-
     @NonNull
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getImageUrl() { return imageUrl; }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

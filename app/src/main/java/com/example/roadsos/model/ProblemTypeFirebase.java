@@ -9,7 +9,7 @@ import java.util.List;
 public class ProblemTypeFirebase {
     final static String PROBLEM_TYPES_COLLECTION = "problemTypes";
 
-    public static void getAllProblems(final ProblemTypeModel.Listener<List<ProblemType>> listener) {
+    public static void getAllProblemTypes(final ProblemTypeModel.Listener<List<ProblemType>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(PROBLEM_TYPES_COLLECTION).get().addOnCompleteListener((task -> {
             List<ProblemType> data = null;

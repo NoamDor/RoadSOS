@@ -14,11 +14,14 @@
     <fragment
         android:id="@+id/ProblemCreationFragment"
         android:name="com.example.roadsos.ui.problemCreation.ProblemCreationFragment"
-        android:label="@string/title_call_for_help"
-        tools:layout="@layout/fragment_problem_creation" >
+        android:label="סוג המקרה"
+        tools:layout="@layout/fragment_problem_creation">
         <action
             android:id="@+id/action_ProblemCreationFragment_to_problemDetailsFragment"
             app:destination="@id/problemDetailsFragment" />
+        <action
+            android:id="@+id/action_ProblemCreationFragment_to_problemLocationFragment"
+            app:destination="@id/problemLocationFragment" />
     </fragment>
 
     <fragment
@@ -34,8 +37,8 @@
     <fragment
         android:id="@+id/problemDetailsFragment"
         android:name="com.example.roadsos.ui.ProblemDetailsFragment"
-        android:label="fragment_problem_details"
-        tools:layout="@layout/fragment_problem_details" >
+        android:label="פרטים"
+        tools:layout="@layout/fragment_problem_details">
         <argument
             android:name="problemType"
             app:argType="com.example.roadsos.model.ProblemType" />

@@ -84,7 +84,7 @@ public class ProblemCreationFragment extends Fragment {
         continueBtn.setOnClickListener(v -> {
             NavDirections direction =
                     ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemDetailsFragment(data.get(selectedViewPosition));
-//            NavDirections direction = ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemLocationFragment();
+            NavDirections direction2 = ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemLocationFragment();
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction);
         });
 
@@ -120,7 +120,7 @@ public class ProblemCreationFragment extends Fragment {
             TextView problemName = view.findViewById(R.id.problem_type_name_tv);
             ImageView problemImage = view.findViewById(R.id.problem_type_image_tv);
             problemName.setText(pt.getName());
-            Picasso.get().load(pt.imageUrl).into(problemImage);
+            Picasso.get().load(pt.getImageUrl()).into(problemImage);
         }
     }
 

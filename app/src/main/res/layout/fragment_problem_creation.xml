@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.problemCreation.ProblemCreationFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="הבעיה"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/problem_type_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/problem_creation_continue_btn"
         android:layout_width="wrap_content"
@@ -33,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="128dp"
         android:background="@drawable/custom_border"
