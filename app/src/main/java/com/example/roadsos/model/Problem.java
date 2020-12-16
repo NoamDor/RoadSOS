@@ -3,6 +3,7 @@ package com.example.roadsos.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.google.gson.Gson;
 
@@ -15,22 +16,22 @@ public class Problem {
     @PrimaryKey
     @NonNull
     private String id;
-    private int problemTypeId;
+    @TypeConverters(Converters.class)
+    public ProblemType problemType;
     private String carType;
     private String licensePlate;
     private String userName;
     private String phoneNumber;
     private String carImageUrl;
 
-    public Problem(int problemTypeId,
+    public Problem(ProblemType problemType,
                    String carType,
                    String licensePlate,
                    String userName,
                    String phoneNumber,
                    String carImageUrl) {
-//        this.problemType = problemType;
         this.carType = carType;
-        this.problemTypeId = problemTypeId;
+        this.problemType = problemType;
         this.licensePlate = licensePlate;
         this.userName = userName;
         this.phoneNumber = phoneNumber;
@@ -50,12 +51,12 @@ public class Problem {
         this.id = id;
     }
 
-    public int getProblemTypeId() {
-        return this.problemTypeId;
+    public ProblemType getProblemType() {
+        return this.problemType;
     }
 
-    public void setProblemTypeId(int problemTypeId) {
-        this.problemTypeId = problemTypeId;
+    public void setProblemType(ProblemType problemType) {
+        this.problemType = problemType;
     }
 
     public String getCarType() {
@@ -101,7 +102,7 @@ public class Problem {
     public Map<String, Object> toMap() {
         HashMap<String, Object> problem = new HashMap<>();
         problem.put("id", id);
-        problem.put("problemTypeId", problemTypeId);
+        problem.put("problemType", problemType);
         problem.put("carType", carType);
         problem.put("licensePlate", licensePlate);
         problem.put("userName", userName);

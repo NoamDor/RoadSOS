@@ -17,9 +17,6 @@
         android:label="סוג המקרה"
         tools:layout="@layout/fragment_problem_creation">
         <action
-            android:id="@+id/action_ProblemCreationFragment_to_problemDetailsFragment"
-            app:destination="@id/problemDetailsFragment" />
-        <action
             android:id="@+id/action_ProblemCreationFragment_to_problemLocationFragment"
             app:destination="@id/problemLocationFragment" />
     </fragment>
@@ -37,10 +34,17 @@
         <action
             android:id="@+id/action_problemLocationFragment_to_problemDetailsFragment"
             app:destination="@id/problemDetailsFragment" />
+        <argument
+            android:name="problemType"
+            app:argType="com.example.roadsos.model.ProblemType" />
     </fragment>
     <fragment
         android:id="@+id/problemDetailsFragment"
         android:name="com.example.roadsos.ui.ProblemDetailsFragment"
         android:label="פרטים"
-        tools:layout="@layout/fragment_problem_details"/>
+        tools:layout="@layout/fragment_problem_details">
+        <argument
+            android:name="problemType"
+            app:argType="com.example.roadsos.model.ProblemType" />
+    </fragment>
 </navigation>

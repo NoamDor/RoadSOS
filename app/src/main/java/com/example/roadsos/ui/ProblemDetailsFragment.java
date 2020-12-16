@@ -70,7 +70,7 @@ public class ProblemDetailsFragment extends Fragment {
             saveProblem();
         });
 
-        //problemType = ProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
+        problemType = ProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
         return view;
     }
 
@@ -89,11 +89,10 @@ public class ProblemDetailsFragment extends Fragment {
 
         Date date = new Date();
 
-        StoreModel.uploadImage(imageBitmap, "my_photo" + date.getTime(), new StoreModel.Listener() {
+        StoreModel.uploadImage(imageBitmap, userName + date.getTime(), new StoreModel.Listener() {
             @Override
             public void onSuccess(String url) {
-                Log.d("TAG", "url: " + url);
-                Problem problem = new Problem(problemType.getId(), carType, licensePlate, userName, phoneNumber, url);
+                Problem problem = new Problem(problemType, carType, licensePlate, userName, phoneNumber, url);
                 ProblemModel.instance.addProblem(problem, new ProblemModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {

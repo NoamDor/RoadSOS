@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.roadsos.R;
+import com.example.roadsos.model.ProblemType;
+import com.example.roadsos.ui.ProblemDetailsFragmentArgs;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -73,12 +75,14 @@ public class ProblemLocationFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_problem_location, container, false);
+        ProblemType problemType = ProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
 
         Button continueBtn = view.findViewById(R.id.problem_location_continue_btn);
         continueBtn.setOnClickListener(b -> {
-            NavDirections direction = ProblemLocationFragmentDirections.actionProblemLocationFragmentToProblemDetailsFragment();
+            NavDirections direction = ProblemLocationFragmentDirections.actionProblemLocationFragmentToProblemDetailsFragment(problemType);
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction);
         });
+
         return view;
     }
 

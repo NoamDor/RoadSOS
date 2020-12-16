@@ -3,6 +3,9 @@ package com.example.roadsos.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 
