@@ -7,12 +7,13 @@ import androidx.room.TypeConverters;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-public class Problem {
+public class Problem implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;

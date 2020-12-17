@@ -6,19 +6,23 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.roadsos.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/problemsFragment"
+        android:name="com.example.roadsos.ui.problems.ProblemsFragment"
+        android:label="מקרים"
+        tools:layout="@layout/fragment_problems">
+        <action
+            android:id="@+id/action_problemsFragment_to_problemDetailsFragment"
+            app:destination="@id/problemDetailsFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/ProblemCreationFragment"
-        android:name="com.example.roadsos.ui.problemCreation.ProblemCreationFragment"
+        android:id="@+id/newProblemTypeFragment"
+        android:name="com.example.roadsos.ui.newProblemType.NewProblemTypeFragment"
         android:label="סוג המקרה"
-        tools:layout="@layout/fragment_problem_creation">
+        tools:layout="@layout/fragment_new_problem_type">
         <action
-            android:id="@+id/action_ProblemCreationFragment_to_problemLocationFragment"
-            app:destination="@id/problemLocationFragment" />
+            android:id="@+id/action_newProblemTypeFragment_to_newProblemLocationFragment"
+            app:destination="@id/newProblemLocationFragment" />
     </fragment>
 
     <fragment
@@ -27,24 +31,35 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/problemLocationFragment"
-        android:name="com.example.roadsos.ui.problemLocation.ProblemLocationFragment"
+        android:id="@+id/newProblemLocationFragment"
+        android:name="com.example.roadsos.ui.newProblemLocation.NewProblemLocationFragment"
         android:label="מיקום המקרה"
-        tools:layout="@layout/fragment_problem_location">
+        tools:layout="@layout/fragment_new_problem_location">
         <action
-            android:id="@+id/action_problemLocationFragment_to_problemDetailsFragment"
-            app:destination="@id/problemDetailsFragment" />
+            android:id="@+id/action_newProblemLocationFragment_to_newProblemDetailsFragment"
+            app:destination="@id/newProblemDetailsFragment" />
         <argument
             android:name="problemType"
             app:argType="com.example.roadsos.model.ProblemType" />
     </fragment>
     <fragment
-        android:id="@+id/problemDetailsFragment"
-        android:name="com.example.roadsos.ui.ProblemDetailsFragment"
+        android:id="@+id/newProblemDetailsFragment"
+        android:name="com.example.roadsos.ui.NewProblemDetailsFragment"
         android:label="פרטים"
-        tools:layout="@layout/fragment_problem_details">
+        tools:layout="@layout/fragment_new_problem_details">
         <argument
             android:name="problemType"
             app:argType="com.example.roadsos.model.ProblemType" />
+        <action
+            android:id="@+id/action_newProblemDetailsFragment_to_navigation_home"
+            app:destination="@id/problemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/problemDetailsFragment"
+        android:name="com.example.roadsos.ui.problemDetails.ProblemDetailsFragment"
+        android:label="פרטי מקרה">
+        <argument
+            android:name="problem"
+            app:argType="com.example.roadsos.model.Problem" />
     </fragment>
 </navigation>

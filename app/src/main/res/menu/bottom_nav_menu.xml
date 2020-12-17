@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/problemsFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_problems" />
 
     <item
-        android:id="@+id/ProblemCreationFragment"
+        android:id="@+id/newProblemTypeFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="הזמן סיוע" />
+        android:title="@string/title_call_for_help" />
 
     <item
         android:id="@+id/navigation_notifications"

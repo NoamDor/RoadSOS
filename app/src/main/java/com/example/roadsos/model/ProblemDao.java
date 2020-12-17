@@ -19,4 +19,7 @@ public interface ProblemDao {
 
     @Delete
     void delete(Problem... problems);
+
+    @Query("delete from Problem")
+    void delete();
 }

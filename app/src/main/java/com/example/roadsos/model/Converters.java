@@ -18,7 +18,6 @@ public class Converters {
 
     @TypeConverter
     public static ProblemType toProblemType(String json) {
-        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-        return new Gson().fromJson(json, listType);
+        return new Gson().fromJson(json, ProblemType.class);
     }
 }
