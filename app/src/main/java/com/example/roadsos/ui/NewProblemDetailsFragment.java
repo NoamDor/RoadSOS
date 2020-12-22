@@ -81,7 +81,7 @@ public class NewProblemDetailsFragment extends Fragment {
         TextInputEditText licensePlateEditText = view.findViewById(R.id.new_problem_details_license_plate_et);
         String licensePlate = licensePlateEditText.getText().toString();
 
-        TextInputEditText userNameEditText = view.findViewById(R.id.new_problem_details_phone_number_et);
+        TextInputEditText userNameEditText = view.findViewById(R.id.new_problem_details_user_name_et);
         String userName = userNameEditText.getText().toString();
 
         TextInputEditText phoneNumberEditText = view.findViewById(R.id.new_problem_details_phone_number_et);
