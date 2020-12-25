@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.newProblemType.NewProblemTypeFragment">
+    tools:context=".ui.newProblem.NewProblemTypeFragment">
 
     <Button
         android:id="@+id/new_problem_type_continue_btn"

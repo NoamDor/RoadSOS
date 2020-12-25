@@ -1,4 +1,4 @@
-package com.example.roadsos.ui.newProblemType;
+package com.example.roadsos.ui.newProblem;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.ProblemType;
+import com.example.roadsos.ui.newProblem.NewProblemTypeFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;

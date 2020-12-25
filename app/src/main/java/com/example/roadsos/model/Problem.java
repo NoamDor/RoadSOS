@@ -17,6 +17,7 @@ public class Problem implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
+    private String uid;
     @TypeConverters(Converters.class)
     public ProblemType problemType;
     private String carType;
@@ -25,12 +26,14 @@ public class Problem implements Serializable {
     private String phoneNumber;
     private String carImageUrl;
 
-    public Problem(ProblemType problemType,
+    public Problem(String uid,
+                   ProblemType problemType,
                    String carType,
                    String licensePlate,
                    String userName,
                    String phoneNumber,
                    String carImageUrl) {
+        this.uid = uid;
         this.carType = carType;
         this.problemType = problemType;
         this.licensePlate = licensePlate;
@@ -43,6 +46,10 @@ public class Problem implements Serializable {
     public Problem() {
 
     }
+
+    public String getUid() { return this.uid; }
+
+    public void setUid(String uid) { this.uid = uid; }
 
     public String getId() {
         return this.id;
@@ -103,6 +110,7 @@ public class Problem implements Serializable {
     public Map<String, Object> toMap() {
         HashMap<String, Object> problem = new HashMap<>();
         problem.put("id", id);
+        problem.put("uid", uid);
         problem.put("problemType", problemType);
         problem.put("carType", carType);
         problem.put("licensePlate", licensePlate);

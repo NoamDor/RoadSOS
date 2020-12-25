@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.Problem;
-import com.example.roadsos.ui.newProblemType.NewProblemTypeFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    tools:context=".ui.NewProblemDetailsFragment">
+    tools:context=".ui.newProblem.NewProblemDetailsFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/problem_details_car_type_layout"

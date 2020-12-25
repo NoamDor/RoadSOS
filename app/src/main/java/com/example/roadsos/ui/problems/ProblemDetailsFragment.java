@@ -1,4 +1,4 @@
-package com.example.roadsos.ui.problemDetails;
+package com.example.roadsos.ui.problems;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.Problem;
+import com.example.roadsos.ui.problems.ProblemDetailsFragmentArgs;
 import com.squareup.picasso.Picasso;
 
 public class ProblemDetailsFragment extends Fragment {

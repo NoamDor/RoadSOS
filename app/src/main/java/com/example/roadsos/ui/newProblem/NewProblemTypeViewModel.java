@@ -1,4 +1,4 @@
-package com.example.roadsos.ui.newProblemType;
+package com.example.roadsos.ui.newProblem;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

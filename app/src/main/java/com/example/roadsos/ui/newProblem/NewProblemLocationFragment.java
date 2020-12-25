@@ -1,4 +1,4 @@
-package com.example.roadsos.ui.newProblemLocation;
+package com.example.roadsos.ui.newProblem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +17,8 @@ import android.widget.Button;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.ProblemType;
-import com.example.roadsos.ui.NewProblemDetailsFragmentArgs;
+import com.example.roadsos.ui.newProblem.NewProblemDetailsFragmentArgs;
+import com.example.roadsos.ui.newProblem.NewProblemLocationFragmentDirections;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;

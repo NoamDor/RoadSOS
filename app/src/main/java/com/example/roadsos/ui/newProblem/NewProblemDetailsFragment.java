@@ -1,4 +1,4 @@
-package com.example.roadsos.ui;
+package com.example.roadsos.ui.newProblem;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,8 +28,11 @@ import com.example.roadsos.model.Problem;
 import com.example.roadsos.model.ProblemModel;
 import com.example.roadsos.model.ProblemType;
 import com.example.roadsos.model.StoreModel;
+import com.example.roadsos.ui.newProblem.NewProblemDetailsFragmentArgs;
+import com.example.roadsos.ui.newProblem.NewProblemDetailsFragmentDirections;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Date;
 
@@ -92,7 +95,8 @@ public class NewProblemDetailsFragment extends Fragment {
         StoreModel.uploadImage(imageBitmap, userName + date.getTime(), new StoreModel.Listener() {
             @Override
             public void onSuccess(String url) {
-                Problem problem = new Problem(problemType, carType, licensePlate, userName, phoneNumber, url);
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Problem problem = new Problem(uid, problemType, carType, licensePlate, userName, phoneNumber, url);
                 ProblemModel.instance.addProblem(problem, new ProblemModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {

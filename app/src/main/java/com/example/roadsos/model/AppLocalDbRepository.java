@@ -7,7 +7,7 @@ import androidx.room.TypeConverters;
 
 import com.example.roadsos.App;
 
-@Database(entities = {ProblemType.class, Problem.class}, version = 5)
+@Database(entities = {ProblemType.class, Problem.class}, version = 6)
 @TypeConverters({Converters.class})
 public abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract ProblemTypeDao problemTypeDao();
