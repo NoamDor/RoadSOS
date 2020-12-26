@@ -46,48 +46,19 @@ public class ProblemModel {
         });
     }
 
-    public void refreshUserProblemsList(CompListener listener) {
-        ProblemFirebase.getUserProblems(new Listener<List<Problem>>() {
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            public void onComplete(final List<Problem> data) {
-                new AsyncTask<String, String, String>() {
-                    @Override
-                    protected String doInBackground(String... strings) {
-                        AppLocalDb.db.problemDao().delete();
-                        for (Problem p : data) {
-                            AppLocalDb.db.problemDao().insertAll(p);
-                        }
-                        return "";
-                    }
-
-                    @Override
-                    protected void onPostExecute(String s) {
-                        super.onPostExecute(s);
-
-                        if (listener != null) {
-                            listener.onComplete();
-                        }
-                    }
-                }.execute("");
-            }
-        });
-    }
-
     public LiveData<List<Problem>> getAllProblems() {
         LiveData<List<Problem>> liveData = AppLocalDb.db.problemDao().getAll();
         refreshProblemsList(null);
         return liveData;
     }
 
-    public LiveData<List<Problem>> getUserProblems() {
-        LiveData<List<Problem>> liveData = AppLocalDb.db.problemDao().getAll();
-        refreshUserProblemsList(null);
-        return liveData;
+    public void addProblem(Problem problem, Listener<Boolean> listener) {
+        ProblemFirebase.upsertProblem(problem, listener);
+        AsyncTask.execute(() -> AppLocalDb.db.problemDao().insertAll(problem));
     }
 
-    public void addProblem(Problem problem, Listener<Boolean> listener) {
-        ProblemFirebase.addProblem(problem, listener);
-        AsyncTask.execute(() -> AppLocalDb.db.problemDao().insertAll(problem));
+    public void updateProblem(Problem problem, Listener<Boolean> listener) {
+        ProblemFirebase.upsertProblem(problem, listener);
+        AsyncTask.execute(() -> AppLocalDb.db.problemDao().update(problem));
     }
 }

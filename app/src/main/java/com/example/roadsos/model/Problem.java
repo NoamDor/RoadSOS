@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.roadsos.model.ProblemStatus;
+import com.example.roadsos.enums.StatusCode;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -18,6 +20,8 @@ public class Problem implements Serializable {
     @NonNull
     private String id;
     private String uid;
+    @TypeConverters(Converters.class)
+    private ProblemStatus status;
     @TypeConverters(Converters.class)
     public ProblemType problemType;
     private String carType;
@@ -34,6 +38,7 @@ public class Problem implements Serializable {
                    String phoneNumber,
                    String carImageUrl) {
         this.uid = uid;
+        this.status = new ProblemStatus(StatusCode.NEW, "חדש");
         this.carType = carType;
         this.problemType = problemType;
         this.licensePlate = licensePlate;
@@ -50,6 +55,10 @@ public class Problem implements Serializable {
     public String getUid() { return this.uid; }
 
     public void setUid(String uid) { this.uid = uid; }
+
+    public ProblemStatus getStatus() { return this.status; }
+
+    public void setStatus(ProblemStatus status) { this.status = status; }
 
     public String getId() {
         return this.id;
@@ -111,6 +120,7 @@ public class Problem implements Serializable {
         HashMap<String, Object> problem = new HashMap<>();
         problem.put("id", id);
         problem.put("uid", uid);
+        problem.put("status", status);
         problem.put("problemType", problemType);
         problem.put("carType", carType);
         problem.put("licensePlate", licensePlate);

@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/problemsFragment"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_car_problems"
         android:title="@string/title_problems" />
 
     <item
         android:id="@+id/newProblemTypeFragment"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_help"
         android:title="@string/title_call_for_help" />
 
     <item
-        android:id="@+id/myProblemsFragment"
-        android:icon="@drawable/ic_user"
-        android:title="@string/title_my_problems" />
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_notifications" />
 
 </menu>

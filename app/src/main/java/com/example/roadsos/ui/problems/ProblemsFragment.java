@@ -18,11 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roadsos.R;
+import com.example.roadsos.enums.StatusCode;
 import com.example.roadsos.model.Problem;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.example.roadsos.enums.StatusCode.DONE;
+import static com.example.roadsos.enums.StatusCode.NEW;
+import static com.example.roadsos.enums.StatusCode.OCCUPIED;
 
 public class ProblemsFragment extends Fragment {
 
@@ -32,11 +37,9 @@ public class ProblemsFragment extends Fragment {
     LiveData<List<Problem>> liveData;
     List<Problem> data = new LinkedList<Problem>();
 
-    private ProblemsViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
+        viewModel =
                 new ViewModelProvider(this).get(ProblemsViewModel.class);
         View view = inflater.inflate(R.layout.fragment_problems, container, false);
 
@@ -93,10 +96,21 @@ public class ProblemsFragment extends Fragment {
             TextView problemType = view.findViewById(R.id.problem_row_type_tv);
             ImageView problemTypeImage = view.findViewById(R.id.problem_row_type_img);
             ImageView carImage = view.findViewById(R.id.problem_row_car_img);
+            TextView status = view.findViewById(R.id.problem_row_status_tv);
+            ImageView statusImage = view.findViewById(R.id.problem_row_status_img);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);
             Picasso.get().load(problem.getCarImageUrl()).into(carImage);
+            status.setText(problem.getStatus().desc);
+
+            if (problem.getStatus().code == NEW.getValue()) {
+                statusImage.setImageResource(R.drawable.ic_resource_new);
+            } else if (problem.getStatus().code == OCCUPIED.getValue()) {
+                statusImage.setImageResource(R.drawable.ic_in_progress);
+            } else {
+                statusImage.setImageResource(R.drawable.ic_finished);
+            }
         }
     }
 
