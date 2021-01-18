@@ -107,11 +107,13 @@ public class MyProblemsFragment extends Fragment {
             ImageView carImage = view.findViewById(R.id.problem_row_car_img);
             TextView status = view.findViewById(R.id.problem_row_status_tv);
             ImageView statusImage = view.findViewById(R.id.problem_row_status_img);
+            TextView address = view.findViewById(R.id.problem_row_address_tv);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);
             Picasso.get().load(problem.getCarImageUrl()).into(carImage);
             status.setText(problem.getStatus().desc);
+            address.setText(problem.getLocation().address);
 
             if (problem.getStatus().code == NEW.getValue()) {
                 statusImage.setImageResource(R.drawable.ic_resource_new);

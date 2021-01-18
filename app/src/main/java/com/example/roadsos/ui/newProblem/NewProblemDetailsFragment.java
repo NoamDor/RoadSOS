@@ -2,6 +2,7 @@ package com.example.roadsos.ui.newProblem;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.roadsos.R;
+import com.example.roadsos.model.MyLocation;
 import com.example.roadsos.model.Problem;
 import com.example.roadsos.model.ProblemModel;
 import com.example.roadsos.model.ProblemType;
@@ -45,6 +47,7 @@ public class NewProblemDetailsFragment extends Fragment {
     View view;
     Bitmap imageBitmap;
     ProblemType problemType;
+    MyLocation problemLocation;
 
     public NewProblemDetailsFragment() {
         // Required empty public constructor
@@ -74,6 +77,7 @@ public class NewProblemDetailsFragment extends Fragment {
         });
 
         problemType = NewProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemType();
+        problemLocation = NewProblemDetailsFragmentArgs.fromBundle(getArguments()).getProblemLocation();
         return view;
     }
 
@@ -96,7 +100,7 @@ public class NewProblemDetailsFragment extends Fragment {
             @Override
             public void onSuccess(String url) {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Problem problem = new Problem(uid, problemType, carType, licensePlate, userName, phoneNumber, url);
+                Problem problem = new Problem(uid, problemLocation, problemType, carType, licensePlate, userName, phoneNumber, url);
                 ProblemModel.instance.addProblem(problem, new ProblemModel.Listener<Boolean>() {
                     @Override
                     public void onComplete(Boolean data) {

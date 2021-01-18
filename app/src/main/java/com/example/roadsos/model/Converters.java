@@ -1,13 +1,10 @@
 package com.example.roadsos.model;
 
+import android.location.Location;
+
 import androidx.room.TypeConverter;
 
-import com.example.roadsos.enums.StatusCode;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 public class Converters {
 
@@ -31,5 +28,16 @@ public class Converters {
     @TypeConverter
     public static ProblemStatus toProblemStatus(String json) {
         return new Gson().fromJson(json, ProblemStatus.class);
+    }
+
+    @TypeConverter
+    public static String toJson(MyLocation location) {
+        Gson gson = new Gson();
+        return gson.toJson(location);
+    }
+
+    @TypeConverter
+    public static MyLocation toLocation(String json) {
+        return new Gson().fromJson(json, MyLocation.class);
     }
 }

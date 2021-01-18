@@ -1,5 +1,7 @@
 package com.example.roadsos.model;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -24,6 +26,8 @@ public class Problem implements Serializable {
     private ProblemStatus status;
     @TypeConverters(Converters.class)
     public ProblemType problemType;
+    @TypeConverters(Converters.class)
+    public MyLocation location;
     private String carType;
     private String licensePlate;
     private String userName;
@@ -31,6 +35,7 @@ public class Problem implements Serializable {
     private String carImageUrl;
 
     public Problem(String uid,
+                   MyLocation location,
                    ProblemType problemType,
                    String carType,
                    String licensePlate,
@@ -38,6 +43,7 @@ public class Problem implements Serializable {
                    String phoneNumber,
                    String carImageUrl) {
         this.uid = uid;
+        this.location = location;
         this.status = new ProblemStatus(StatusCode.NEW, "חדש");
         this.carType = carType;
         this.problemType = problemType;
@@ -55,6 +61,10 @@ public class Problem implements Serializable {
     public String getUid() { return this.uid; }
 
     public void setUid(String uid) { this.uid = uid; }
+
+    public MyLocation getLocation() { return this.location; }
+
+    public void setLocation(MyLocation location) { this.location = location; }
 
     public ProblemStatus getStatus() { return this.status; }
 
@@ -120,6 +130,7 @@ public class Problem implements Serializable {
         HashMap<String, Object> problem = new HashMap<>();
         problem.put("id", id);
         problem.put("uid", uid);
+        problem.put("location", location);
         problem.put("status", status);
         problem.put("problemType", problemType);
         problem.put("carType", carType);
