@@ -1,4 +1,4 @@
-package com.example.roadsos.ui.problems;
+package com.example.roadsos.ui.myProblems;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,55 +12,53 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.roadsos.R;
-import com.example.roadsos.enums.StatusCode;
 import com.example.roadsos.model.Problem;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.roadsos.enums.StatusCode.DONE;
 import static com.example.roadsos.enums.StatusCode.NEW;
 import static com.example.roadsos.enums.StatusCode.OCCUPIED;
 
-public class ProblemsFragment extends Fragment {
+public class MyProblemsFragment extends Fragment {
 
     RecyclerView list;
-    ProblemsAdapter adapter;
-    ProblemsViewModel viewModel;
+    MyProblemsAdapter adapter;
+    MyProblemsViewModel viewModel;
     LiveData<List<Problem>> liveData;
     List<Problem> data = new LinkedList<Problem>();
     SwipeRefreshLayout swipeRefresh;
 
+    private MyProblemsViewModel myProblemsViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        viewModel =
-                new ViewModelProvider(this).get(ProblemsViewModel.class);
-        View view = inflater.inflate(R.layout.fragment_problems, container, false);
+        myProblemsViewModel =
+                new ViewModelProvider(this).get(MyProblemsViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_my_problems, container, false);
 
-        list = view.findViewById(R.id.home_list);
+        list = view.findViewById(R.id.my_problems_list);
         list.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext() );
         list.setLayoutManager(layoutManager);
 
-        adapter = new ProblemsAdapter();
+        adapter = new MyProblemsAdapter();
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener((position) -> {
             Problem problem = data.get(position);
-            NavDirections direction = ProblemsFragmentDirections.actionProblemsFragmentToProblemDetailsFragment(problem);
-            Navigation.findNavController(view).navigate(direction);
+//            NavDirections direction = MyProblemsFragmentDirections.actionProblemsFragmentToProblemDetailsFragment(problem);
+//            Navigation.findNavController(view).navigate(direction);
         });
 
-        swipeRefresh = view.findViewById(R.id.home_list_swipe_refresh);
+        swipeRefresh = view.findViewById(R.id.my_problems_list_swipe_refresh);
         swipeRefresh.setOnRefreshListener(() -> {
             viewModel.refresh(() -> {
                 swipeRefresh.setRefreshing(false);
@@ -82,13 +80,13 @@ public class ProblemsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        viewModel = new ViewModelProvider(this).get(ProblemsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyProblemsViewModel.class);
     }
 
-    public static class ProblemViewHolder extends RecyclerView.ViewHolder {
+    public static class MyProblemViewHolder extends RecyclerView.ViewHolder {
         View view;
 
-        public ProblemViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+        public MyProblemViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             view = itemView;
 
@@ -125,7 +123,7 @@ public class ProblemsFragment extends Fragment {
         }
     }
 
-    public class ProblemsAdapter extends RecyclerView.Adapter<ProblemViewHolder> {
+    public class MyProblemsAdapter extends RecyclerView.Adapter<MyProblemViewHolder> {
         private OnItemClickListener mListener;
 
         public void setOnItemClickListener(OnItemClickListener listener) {
@@ -134,14 +132,14 @@ public class ProblemsFragment extends Fragment {
 
         @NonNull
         @Override
-        public ProblemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyProblemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(getActivity())
                     .inflate(R.layout.problem_row, parent, false);
-            return new ProblemViewHolder(v, mListener);
+            return new MyProblemViewHolder(v, mListener);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ProblemViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyProblemViewHolder holder, int position) {
             holder.bind(data.get(position));
         }
 
@@ -154,4 +152,5 @@ public class ProblemsFragment extends Fragment {
     public interface OnItemClickListener {
         void onClick(int position);
     }
+
 }

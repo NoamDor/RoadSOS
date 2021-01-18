@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.problems.ProblemsFragment">
+    tools:context=".ui.myProblems.MyProblemsFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/home_list_swipe_refresh">
+        android:id="@+id/my_problems_list_swipe_refresh">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_list"
+            android:id="@+id/my_problems_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

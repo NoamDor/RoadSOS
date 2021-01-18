@@ -26,10 +26,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.roadsos.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/myProblemsFragment"
+        android:name="com.example.roadsos.ui.myProblems.MyProblemsFragment"
+        android:label="המקרים שלי"
+        tools:layout="@layout/fragment_my_problems" />
     <fragment
         android:id="@+id/newProblemLocationFragment"
         android:name="com.example.roadsos.ui.newProblem.NewProblemLocationFragment"
