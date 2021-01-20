@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -45,6 +46,7 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
     private MyLocation currentLocation;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private FusedLocationProviderClient fusedLocationClient;
+    private LiveData<List<Address>> addresses;
 
     @Nullable
     @Override
@@ -132,15 +134,13 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
         Geocoder geocoder;
         geocoder = new Geocoder(getContext(), Locale.getDefault());
 
-        AsyncTask.execute(() -> {
-            try {
-                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                listener.onComplete(addresses);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            listener.onComplete(addresses);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setTextAddress(String address) {
