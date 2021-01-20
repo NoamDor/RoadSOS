@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ import java.util.Locale;
 
 public class NewProblemLocationFragment extends Fragment implements OnMapReadyCallback {
 
-    View view;
+    private View view;
     private GoogleMap map;
     private MyLocation currentLocation;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -62,7 +63,7 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.new_problem_location_map);
         mapFragment.getMapAsync(this);
 
         return view;
@@ -74,9 +75,14 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
         map = googleMap;
         map.setOnMapClickListener(latLng -> {
             moveMap(latLng.latitude, latLng.longitude);
-            String address = getAddress(latLng.latitude, latLng.longitude);
-            setTextAddress(address);
-            currentLocation = new MyLocation(latLng.latitude, latLng.longitude, address);
+            getAddress(latLng.latitude, latLng.longitude, new Listener<List<Address>>() {
+                @Override
+                public void onComplete(List<Address> data) {
+                    String address = data.get(0).getAddressLine(0);
+                    setTextAddress(address);
+                    currentLocation = new MyLocation(latLng.latitude, latLng.longitude, address);
+                }
+            });
         });
 
         setCurrentLocation();
@@ -106,9 +112,14 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
                             double latitude = location.getLatitude();
                             double longitude = location.getLongitude();
                             moveMap(latitude, longitude);
-                            String address = getAddress(latitude, longitude);
-                            setTextAddress(address);
-                            currentLocation = new MyLocation(latitude, longitude, address);
+                            getAddress(latitude, longitude, new Listener<List<Address>>() {
+                                @Override
+                                public void onComplete(List<Address> data) {
+                                    String address = data.get(0).getAddressLine(0);
+                                    setTextAddress(address);
+                                    currentLocation = new MyLocation(latitude, longitude, address);
+                                }
+                            });
                         }
                     });
         } else {
@@ -117,18 +128,19 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
         }
     }
 
-    private String getAddress(double latitude, double longitude) {
+    private void getAddress(double latitude, double longitude, Listener<List<Address>> listener) {
         Geocoder geocoder;
-        List<Address> addresses = null;
         geocoder = new Geocoder(getContext(), Locale.getDefault());
 
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude,1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AsyncTask.execute(() -> {
+            try {
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                listener.onComplete(addresses);
 
-        return addresses.get(0).getAddressLine(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void setTextAddress(String address) {
@@ -150,5 +162,9 @@ public class NewProblemLocationFragment extends Fragment implements OnMapReadyCa
             map.clear();
             map.addMarker(new MarkerOptions().position(latLng));
         }
+    }
+
+    private interface Listener<T> {
+        void onComplete(T data);
     }
 }

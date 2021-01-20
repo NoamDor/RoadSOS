@@ -25,9 +25,9 @@ public class Problem implements Serializable {
     @TypeConverters(Converters.class)
     private ProblemStatus status;
     @TypeConverters(Converters.class)
-    public ProblemType problemType;
+    private ProblemType problemType;
     @TypeConverters(Converters.class)
-    public MyLocation location;
+    private MyLocation location;
     private String carType;
     private String licensePlate;
     private String userName;

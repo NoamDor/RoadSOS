@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_problemsFragment_to_problemDetailsFragment"
             app:destination="@id/problemDetailsFragment" />
+        <action
+            android:id="@+id/action_problemsFragment_to_problemsOnMapFragment"
+            app:destination="@id/problemsOnMapFragment" />
     </fragment>
 
     <fragment
@@ -64,5 +67,17 @@
         <argument
             android:name="problem"
             app:argType="com.example.roadsos.model.Problem" />
+    </fragment>
+    <fragment
+        android:id="@+id/problemsOnMapFragment"
+        android:name="com.example.roadsos.ui.problems.ProblemsOnMapFragment"
+        android:label="מקרים על המפה"
+        tools:layout="@layout/fragment_problems_on_map" >
+        <action
+            android:id="@+id/action_problemsOnMapFragment_to_problemDetailsFragment"
+            app:destination="@id/problemDetailsFragment" />
+        <action
+            android:id="@+id/action_problemsOnMapFragment_to_problemsFragment"
+            app:destination="@id/problemsFragment" />
     </fragment>
 </navigation>

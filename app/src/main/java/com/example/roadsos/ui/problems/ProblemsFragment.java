@@ -3,6 +3,9 @@ package com.example.roadsos.ui.problems;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,14 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.roadsos.R;
-import com.example.roadsos.enums.StatusCode;
 import com.example.roadsos.model.Problem;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.roadsos.enums.StatusCode.DONE;
 import static com.example.roadsos.enums.StatusCode.NEW;
 import static com.example.roadsos.enums.StatusCode.OCCUPIED;
 
@@ -41,8 +43,6 @@ public class ProblemsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        viewModel =
-                new ViewModelProvider(this).get(ProblemsViewModel.class);
         View view = inflater.inflate(R.layout.fragment_problems, container, false);
 
         list = view.findViewById(R.id.home_list);
@@ -82,7 +82,27 @@ public class ProblemsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
+        setHasOptionsMenu(true);
         viewModel = new ViewModelProvider(this).get(ProblemsViewModel.class);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.problems_list_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_problems_map:
+                NavController navCtrl = Navigation.findNavController(list);
+                NavDirections direction = ProblemsFragmentDirections.actionProblemsFragmentToProblemsOnMapFragment();
+                navCtrl.navigate(direction);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public static class ProblemViewHolder extends RecyclerView.ViewHolder {
