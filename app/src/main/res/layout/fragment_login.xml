@@ -24,7 +24,7 @@
         android:layout_above="@id/login_email_layout"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="50dp"
-        android:text="ברוכים הבאים לאפליקציה הטובה בעולם"
+        android:text="@string/sub_title"
         android:textSize="17sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -76,7 +76,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/btn_custom"
-        android:text="התחבר"
+        android:text="@string/login"
         android:textColor="@android:color/white" />
 
     <View
@@ -96,7 +96,7 @@
         android:layout_below="@id/login_seperator"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="צור/צרי חשבון חדש"
+        android:text="@string/register"
         app:backgroundTint="#8BC34A" />
 
 </RelativeLayout>

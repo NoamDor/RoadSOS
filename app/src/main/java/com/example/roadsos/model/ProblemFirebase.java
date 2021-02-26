@@ -55,4 +55,11 @@ public class ProblemFirebase {
             }
         });
     }
+
+    public static void deleteProblem(Problem problem, final ProblemModel.Listener<Boolean> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(PROBLEM_COLLECTION).document(problem.getId()).delete().addOnCompleteListener(task -> {
+            listener.onComplete(task.isSuccessful());
+        });
+    }
 }

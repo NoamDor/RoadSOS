@@ -1,5 +1,6 @@
 package com.example.roadsos.ui.problems;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ import static com.example.roadsos.enums.StatusCode.NEW;
 import static com.example.roadsos.enums.StatusCode.OCCUPIED;
 
 public class ProblemsFragment extends Fragment {
-
     RecyclerView list;
     ProblemsAdapter adapter;
     ProblemsViewModel viewModel;
@@ -130,6 +130,8 @@ public class ProblemsFragment extends Fragment {
             TextView status = view.findViewById(R.id.problem_row_status_tv);
             ImageView statusImage = view.findViewById(R.id.problem_row_status_img);
             TextView address = view.findViewById(R.id.problem_row_address_tv);
+            view.findViewById(R.id.problem_row_edit_btn).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.problem_row_delete_btn).setVisibility(View.INVISIBLE);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);

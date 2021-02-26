@@ -95,4 +95,9 @@ public class ProblemModel {
         ProblemFirebase.upsertProblem(problem, listener);
         AsyncTask.execute(() -> AppLocalDb.db.problemDao().update(problem));
     }
+
+    public void deleteProblem(Problem problem, Listener<Boolean> listener) {
+        ProblemFirebase.deleteProblem(problem, listener);
+        AsyncTask.execute(() -> AppLocalDb.db.problemDao().delete(problem));
+    }
 }

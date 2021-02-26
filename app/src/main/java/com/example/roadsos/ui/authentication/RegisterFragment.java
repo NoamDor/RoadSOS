@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.roadsos.MainActivity;
@@ -24,7 +23,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.List;
@@ -46,7 +44,7 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         TextInputLayout emailLayout = view.findViewById(R.id.register_email_layout);
-        TextInputEditText emailEt = view.findViewById(R.id.register_email_et);
+        TextInputEditText emailEt = view.findViewById(R.id.edit_my_problem_name_et);
         Listeners.addListenerToRequiredEditText(emailLayout, emailEt);
 
         TextInputLayout passwordLayout = view.findViewById(R.id.register_password_layout);

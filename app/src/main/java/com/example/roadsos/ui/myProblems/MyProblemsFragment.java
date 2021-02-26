@@ -1,23 +1,30 @@
 package com.example.roadsos.ui.myProblems;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.Problem;
+import com.example.roadsos.model.ProblemModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -51,12 +58,6 @@ public class MyProblemsFragment extends Fragment {
 
         adapter = new MyProblemsAdapter();
         list.setAdapter(adapter);
-
-        adapter.setOnItemClickListener((position) -> {
-            Problem problem = data.get(position);
-//            NavDirections direction = MyProblemsFragmentDirections.actionProblemsFragmentToProblemDetailsFragment(problem);
-//            Navigation.findNavController(view).navigate(direction);
-        });
 
         swipeRefresh = view.findViewById(R.id.my_problems_list_swipe_refresh);
         swipeRefresh.setOnRefreshListener(() -> {
@@ -108,12 +109,28 @@ public class MyProblemsFragment extends Fragment {
             TextView status = view.findViewById(R.id.problem_row_status_tv);
             ImageView statusImage = view.findViewById(R.id.problem_row_status_img);
             TextView address = view.findViewById(R.id.problem_row_address_tv);
+            ImageView editBtn = view.findViewById(R.id.problem_row_edit_btn);
+            ImageView deleteBtn = view.findViewById(R.id.problem_row_delete_btn);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);
             Picasso.get().load(problem.getCarImageUrl()).into(carImage);
             status.setText(problem.getStatus().desc);
             address.setText(problem.getLocation().address);
+
+            deleteBtn.setOnClickListener(v -> ProblemModel.instance.deleteProblem(problem, new ProblemModel.Listener<Boolean>() {
+                @Override
+                public void onComplete(Boolean data) {
+                    Toast.makeText(view.getContext(), "בעיה נמחקה בהצלחה",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }));
+
+            editBtn.setOnClickListener(v -> {
+                NavController navCtrl = Navigation.findNavController(view);
+                NavDirections direction = MyProblemsFragmentDirections.actionMyProblemsFragmentToEditMyProblemFragment(problem);
+                navCtrl.navigate(direction);
+            });
 
             if (problem.getStatus().code == NEW.getValue()) {
                 statusImage.setImageResource(R.drawable.ic_resource_new);
