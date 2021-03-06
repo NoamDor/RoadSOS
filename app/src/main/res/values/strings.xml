@@ -49,7 +49,7 @@
     <string name="user_name">שם:</string>
     <string name="phone_number">טלפון:</string>
     <string name="car_details"><u>פרטי הרכב</u></string>
-    <string name="car_type">סוג:</string>
+    <string name="car_type">סוג הרכב:</string>
     <string name="license_plate">לוחית רישוי:</string>
     <string name="help_btn_text">סייע</string>
 <!--    -->
@@ -61,4 +61,9 @@
     <string name="repassword_hint">אמת סיסמה</string>
     <string name="register_btn_text">בצע הרשמה</string>
 <!--    -->
+
+<!--    EditMyProblemFragment-->
+    <string name="confirm_btn_text">אישור</string>
+<!--    -->
+
 </resources>

@@ -2,6 +2,7 @@ package com.example.roadsos.ui.myProblems;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,13 +24,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.roadsos.R;
+import com.example.roadsos.enums.StatusCode;
 import com.example.roadsos.model.Problem;
 import com.example.roadsos.model.ProblemModel;
+import com.example.roadsos.model.ProblemStatus;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.example.roadsos.enums.StatusCode.DONE;
 import static com.example.roadsos.enums.StatusCode.NEW;
 import static com.example.roadsos.enums.StatusCode.OCCUPIED;
 
@@ -86,6 +90,9 @@ public class MyProblemsFragment extends Fragment {
 
     public static class MyProblemViewHolder extends RecyclerView.ViewHolder {
         View view;
+        ImageView confirmBtn;
+        ImageView closeBtn;
+        ImageView statusImage;
 
         public MyProblemViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -107,23 +114,23 @@ public class MyProblemsFragment extends Fragment {
             ImageView problemTypeImage = view.findViewById(R.id.problem_row_type_img);
             ImageView carImage = view.findViewById(R.id.problem_row_car_img);
             TextView status = view.findViewById(R.id.problem_row_status_tv);
-            ImageView statusImage = view.findViewById(R.id.problem_row_status_img);
+            statusImage = view.findViewById(R.id.problem_row_status_img);
             TextView address = view.findViewById(R.id.problem_row_address_tv);
             ImageView editBtn = view.findViewById(R.id.problem_row_edit_btn);
             ImageView deleteBtn = view.findViewById(R.id.problem_row_delete_btn);
+            confirmBtn = view.findViewById(R.id.problem_row_confirm_btn);
+            closeBtn = view.findViewById(R.id.problem_row_close_btn);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);
             Picasso.get().load(problem.getCarImageUrl()).into(carImage);
             status.setText(problem.getStatus().desc);
             address.setText(problem.getLocation().address);
+            updateButtons(problem.getStatus().code);
 
-            deleteBtn.setOnClickListener(v -> ProblemModel.instance.deleteProblem(problem, new ProblemModel.Listener<Boolean>() {
-                @Override
-                public void onComplete(Boolean data) {
-                    Toast.makeText(view.getContext(), "בעיה נמחקה בהצלחה",
-                            Toast.LENGTH_SHORT).show();
-                }
+            deleteBtn.setOnClickListener(v -> ProblemModel.instance.deleteProblem(problem, succeeded -> {
+                if (succeeded)
+                    Toast.makeText(view.getContext(), "בעיה נמחקה בהצלחה", Toast.LENGTH_SHORT).show();
             }));
 
             editBtn.setOnClickListener(v -> {
@@ -132,11 +139,43 @@ public class MyProblemsFragment extends Fragment {
                 navCtrl.navigate(direction);
             });
 
-            if (problem.getStatus().code == NEW.getValue()) {
+            confirmBtn.setOnClickListener(v -> {
+                problem.setStatus(new ProblemStatus(StatusCode.DONE, "הסתיים"));
+                ProblemModel.instance.updateProblem(problem, succeeded -> {
+                    if (succeeded) {
+                        confirmBtn.setVisibility(View.INVISIBLE);
+                        closeBtn.setVisibility(View.INVISIBLE);
+                    }
+                });
+            });
+
+            closeBtn.setOnClickListener(v -> {
+                problem.setStatus(new ProblemStatus(StatusCode.NEW, "חדש"));
+                ProblemModel.instance.updateProblem(problem, succeeded -> {
+                    if (succeeded) {
+                        closeBtn.setEnabled(false);
+                        closeBtn.setAlpha((float) 0.3);
+                    }
+                });
+            });
+        }
+
+        private void updateButtons(int code) {
+            if (code == NEW.getValue()) {
+                confirmBtn.setEnabled(true);
+                confirmBtn.setAlpha((float) 1);
+                closeBtn.setEnabled(false);
+                closeBtn.setAlpha((float) 0.3);
                 statusImage.setImageResource(R.drawable.ic_resource_new);
-            } else if (problem.getStatus().code == OCCUPIED.getValue()) {
+            } else if (code == OCCUPIED.getValue()) {
+                confirmBtn.setEnabled(true);
+                confirmBtn.setAlpha((float) 1);
+                closeBtn.setEnabled(true);
+                closeBtn.setAlpha((float) 1);
                 statusImage.setImageResource(R.drawable.ic_in_progress);
             } else {
+                confirmBtn.setVisibility(View.INVISIBLE);
+                closeBtn.setVisibility(View.INVISIBLE);
                 statusImage.setImageResource(R.drawable.ic_finished);
             }
         }

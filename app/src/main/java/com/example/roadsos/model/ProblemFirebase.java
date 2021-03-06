@@ -12,7 +12,9 @@ public class ProblemFirebase {
 
     public static void getAllProblems(final ProblemModel.Listener<List<Problem>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(PROBLEM_COLLECTION).get().addOnCompleteListener((task -> {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        db.collection(PROBLEM_COLLECTION).whereNotEqualTo("uid",mAuth.getCurrentUser().getUid()).get()
+                .addOnCompleteListener((task -> {
             List<Problem> data = null;
 
             if (task.isSuccessful()) {
@@ -31,7 +33,8 @@ public class ProblemFirebase {
     public static void getUserProblems(final ProblemModel.Listener<List<Problem>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        db.collection(PROBLEM_COLLECTION).whereEqualTo("uid",mAuth.getCurrentUser().getUid()).get().addOnCompleteListener((task -> {
+        db.collection(PROBLEM_COLLECTION).whereEqualTo("uid",mAuth.getCurrentUser().getUid()).get()
+                .addOnCompleteListener((task -> {
             List<Problem> data = null;
 
             if (task.isSuccessful()) {

@@ -86,8 +86,6 @@ public class NewProblemTypeFragment extends Fragment {
         });
 
         continueBtn.setOnClickListener(v -> {
-//            NavDirections direction =
-//                    ProblemCreationFragmentDirections.actionProblemCreationFragmentToProblemDetailsFragment(data.get(selectedViewPosition));
             NavDirections direction2 = NewProblemTypeFragmentDirections.actionNewProblemTypeFragmentToNewProblemLocationFragment(data.get(selectedViewPosition));
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(direction2);
         });

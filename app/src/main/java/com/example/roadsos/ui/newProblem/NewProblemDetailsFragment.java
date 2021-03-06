@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.roadsos.R;
 import com.example.roadsos.model.MyLocation;
@@ -32,6 +33,7 @@ import com.example.roadsos.model.ProblemType;
 import com.example.roadsos.model.StoreModel;
 import com.example.roadsos.ui.newProblem.NewProblemDetailsFragmentArgs;
 import com.example.roadsos.ui.newProblem.NewProblemDetailsFragmentDirections;
+import com.example.roadsos.utils.Listeners;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +50,10 @@ public class NewProblemDetailsFragment extends Fragment {
     Bitmap imageBitmap;
     ProblemType problemType;
     MyLocation problemLocation;
+    TextInputEditText phoneNumberEditText;
+    TextInputEditText carTypeEditText;
+    TextInputEditText licensePlateEditText;
+    TextInputEditText userNameEditText;
 
     public NewProblemDetailsFragment() {
         // Required empty public constructor
@@ -58,13 +64,22 @@ public class NewProblemDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_new_problem_details, container, false);
-        TextInputLayout userNameLayout = view.findViewById(R.id.new_problem_details_user_name_layout);
-        TextInputEditText userNameEditText = view.findViewById(R.id.new_problem_details_user_name_et);
-        addListenerToRequiredEditText(userNameLayout, userNameEditText);
 
         TextInputLayout phoneNumberLayout = view.findViewById(R.id.new_problem_details_phone_number_layout);
-        TextInputEditText phoneNumberEditText = view.findViewById(R.id.new_problem_details_phone_number_et);
-        addListenerToRequiredEditText(phoneNumberLayout, phoneNumberEditText);
+        this.phoneNumberEditText = view.findViewById(R.id.new_problem_details_phone_number_et);
+        Listeners.addListenerToRequiredEditText(phoneNumberLayout, this.phoneNumberEditText);
+
+        TextInputLayout carTypeLayout = view.findViewById(R.id.new_problem_details_car_type_layout);
+        this.carTypeEditText = view.findViewById(R.id.new_problem_details_car_type_et);
+        Listeners.addListenerToRequiredEditText(carTypeLayout, carTypeEditText);
+
+        TextInputLayout licensePlateLayout = view.findViewById(R.id.new_problem_details_license_plate_layout);
+        this.licensePlateEditText = view.findViewById(R.id.new_problem_details_license_plate_et);
+        Listeners.addListenerToRequiredEditText(licensePlateLayout, licensePlateEditText);
+
+        TextInputLayout userNameLayout = view.findViewById(R.id.new_problem_details_user_name_layout);
+        this.userNameEditText = view.findViewById(R.id.new_problem_details_user_name_et);
+        Listeners.addListenerToRequiredEditText(userNameLayout, userNameEditText);
 
         ImageButton takePhotobtn = view.findViewById(R.id.new_problem_details_take_photo_btn);
         takePhotobtn.setOnClickListener(b -> {
@@ -82,19 +97,16 @@ public class NewProblemDetailsFragment extends Fragment {
     }
 
     private void saveProblem() {
-        TextInputEditText carTypeEditText = view.findViewById(R.id.new_problem_details_car_type_et);
-        String carType = carTypeEditText.getText().toString();
-
-        TextInputEditText licensePlateEditText = view.findViewById(R.id.new_problem_details_license_plate_et);
-        String licensePlate = licensePlateEditText.getText().toString();
-
-        TextInputEditText userNameEditText = view.findViewById(R.id.new_problem_details_user_name_et);
-        String userName = userNameEditText.getText().toString();
-
-        TextInputEditText phoneNumberEditText = view.findViewById(R.id.new_problem_details_phone_number_et);
-        String phoneNumber = phoneNumberEditText.getText().toString();
-
+        String carType = this.carTypeEditText.getText().toString();
+        String licensePlate = this.licensePlateEditText.getText().toString();
+        String userName = this.userNameEditText.getText().toString();
+        String phoneNumber = this.phoneNumberEditText.getText().toString();
         Date date = new Date();
+
+        if (carType.length() == 0 || licensePlate.length() == 0 || userName.length() == 0 || phoneNumber.length() == 0) {
+            Toast.makeText(getActivity(), "אנא מלא את כל הפרטים", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         StoreModel.uploadImage(imageBitmap, userName + date.getTime(), new StoreModel.Listener() {
             @Override
@@ -132,43 +144,6 @@ public class NewProblemDetailsFragment extends Fragment {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-    private void addListenerToRequiredEditText(TextInputLayout layout, TextInputEditText et) {
-        et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateEditText(layout, s);
-            }
-        });
-
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    validateEditText(layout, ((EditText)v).getText());
-                }
-            }
-        });
-    }
-
-    private void validateEditText(TextInputLayout layout, Editable s) {
-        if (TextUtils.isEmpty(s)) {
-            Log.d("TAG", "field is empty");
-            layout.setError("שדה חובה");
-        } else {
-            layout.setError(null);
         }
     }
 }

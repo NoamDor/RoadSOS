@@ -8,7 +8,7 @@
     tools:context=".ui.newProblem.NewProblemDetailsFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/problem_details_car_type_layout"
+        android:id="@+id/new_problem_details_car_type_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problem_details_car_type_layout"
+        app:layout_constraintTop_toBottomOf="@+id/new_problem_details_car_type_layout"
         app:startIconDrawable="@drawable/ic_license_plate">
 
         <com.google.android.material.textfield.TextInputEditText

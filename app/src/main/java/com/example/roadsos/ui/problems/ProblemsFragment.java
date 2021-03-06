@@ -132,6 +132,8 @@ public class ProblemsFragment extends Fragment {
             TextView address = view.findViewById(R.id.problem_row_address_tv);
             view.findViewById(R.id.problem_row_edit_btn).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.problem_row_delete_btn).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.problem_row_confirm_btn).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.problem_row_close_btn).setVisibility(View.INVISIBLE);
 
             problemType.setText(problem.getProblemType().getName());
             Picasso.get().load(problem.getProblemType().getImageUrl()).into(problemTypeImage);

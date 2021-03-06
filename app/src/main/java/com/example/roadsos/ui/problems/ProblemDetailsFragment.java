@@ -55,7 +55,7 @@ public class ProblemDetailsFragment extends Fragment {
             problem.setStatus(new ProblemStatus(StatusCode.OCCUPIED, "בטיפול"));
             ProblemModel.instance.updateProblem(problem, new ProblemModel.Listener<Boolean>() {
                 @Override
-                public void onComplete(Boolean data) {
+                public void onComplete(Boolean succeeded) {
                     Log.d("TAG", "problem updated");
                 }
             });
