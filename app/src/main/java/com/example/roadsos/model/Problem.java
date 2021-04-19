@@ -9,6 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.example.roadsos.model.ProblemStatus;
 import com.example.roadsos.enums.StatusCode;
+import com.google.firebase.firestore.FieldValue;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class Problem implements Serializable {
     private String userName;
     private String phoneNumber;
     private String carImageUrl;
+    private long lastUpdated;
 
     public Problem(String uid,
                    MyLocation location,
@@ -126,6 +128,14 @@ public class Problem implements Serializable {
         this.carImageUrl = carImageUrl;
     }
 
+    public long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> problem = new HashMap<>();
         problem.put("id", id);
@@ -138,6 +148,7 @@ public class Problem implements Serializable {
         problem.put("userName", userName);
         problem.put("phoneNumber", phoneNumber);
         problem.put("carImageUrl", carImageUrl);
+        problem.put("lastUpdated", new Date().getTime());
 
         return problem;
     }

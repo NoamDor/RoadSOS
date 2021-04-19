@@ -1,11 +1,16 @@
 package com.example.roadsos.model;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.roadsos.App;
+
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProblemModel {
     public static final ProblemModel instance = new ProblemModel();
@@ -26,10 +31,21 @@ public class ProblemModel {
                 new AsyncTask<String, String, String>() {
                     @Override
                     protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
                         AppLocalDb.db.problemDao().delete();
+
                         for (Problem p : data) {
                             AppLocalDb.db.problemDao().insertAll(p);
+
+                            if (p.getLastUpdated() > lastUpdated) {
+                                lastUpdated = p.getLastUpdated();
+                            }
                         }
+
+                        SharedPreferences.Editor edit = App.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
+                        edit.putLong("ProblemsLastUpdateDate",lastUpdated);
+                        edit.commit();
+
                         return "";
                     }
 
@@ -54,10 +70,21 @@ public class ProblemModel {
                 new AsyncTask<String, String, String>() {
                     @Override
                     protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
                         AppLocalDb.db.problemDao().delete();
+
                         for (Problem p : data) {
                             AppLocalDb.db.problemDao().insertAll(p);
+
+                            if (p.getLastUpdated() > lastUpdated) {
+                                lastUpdated = p.getLastUpdated();
+                            }
                         }
+
+                        SharedPreferences.Editor edit = App.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
+                        edit.putLong("UserProblemsLastUpdateDate",lastUpdated);
+                        edit.commit();
+
                         return "";
                     }
 
