@@ -10,6 +10,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
+    private SharedPreferences sharedpreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,15 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.authentication_nav_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController);
+
+        sharedpreferences=getApplicationContext().getSharedPreferences("Preferences", 0);
+        String login = sharedpreferences.getString("LOGIN", null);
+
+        if (login != null) {
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -38,5 +51,10 @@ public class AuthenticationActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

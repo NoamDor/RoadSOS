@@ -2,6 +2,8 @@ package com.example.roadsos.ui.problems;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.roadsos.AuthenticationActivity;
+import com.example.roadsos.MainActivity;
 import com.example.roadsos.R;
 import com.example.roadsos.model.Problem;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -40,10 +45,12 @@ public class ProblemsFragment extends Fragment {
     LiveData<List<Problem>> liveData;
     List<Problem> data = new LinkedList<Problem>();
     SwipeRefreshLayout swipeRefresh;
+    SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_problems, container, false);
+        sharedPreferences = getActivity().getSharedPreferences("Preferences", 0);
 
         list = view.findViewById(R.id.home_list);
         list.setHasFixedSize(true);
@@ -100,6 +107,14 @@ public class ProblemsFragment extends Fragment {
                 NavDirections direction = ProblemsFragmentDirections.actionProblemsFragmentToProblemsOnMapFragment();
                 navCtrl.navigate(direction);
                 return true;
+            case R.id.menu_problems_logout:
+                FirebaseAuth.getInstance().signOut();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("LOGIN");
+                editor.commit();
+                Intent i = new Intent(getActivity(), AuthenticationActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

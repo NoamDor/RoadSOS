@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RoadSOS</string>
 
-<!--    MobileNavigation-->
+    <!--    MobileNavigation-->
     <string name="title_problems_on_map">מקרים על המפה</string>
     <string name="title_new_problem_type">סוג המקרה</string>
     <string name="title_edit_my_problem">עריכת המקרה</string>
@@ -9,42 +9,43 @@
     <string name="title_new_prolbem_type">סוג המקרה</string>
     <string name="title_new_problem_location">מיקום המקרה</string>
     <string name="title_new_problem_details">פרטים נוספים</string>
-<!--    -->
+    <!--    -->
 
-<!--    BottomNavigationMenu-->
+    <!--    BottomNavigationMenu-->
     <string name="title_problems">מקרים</string>
     <string name="title_call_for_help">הזמן סיוע</string>
     <string name="title_my_problems">המקרים שלי</string>
-<!--    -->
+    <!--    -->
 
-<!--    ProblemsListMenu-->
+    <!--    ProblemsListMenu-->
     <string name="title_map">תצוגת מפה</string>
-<!--    -->
+    <string name="title_logout">התנתק</string>
+    <!--    -->
 
-<!--    ProblemsMapMenu-->
+    <!--    ProblemsMapMenu-->
     <string name="title_list">תצוגת רשימה</string>
-<!--    -->
+    <!--    -->
 
-<!--    LoginFragment-->
+    <!--    LoginFragment-->
     <string name="sub_title">ברוכים הבאים לאפליקציה הטובה בעולם</string>
     <string name="login">התחבר</string>
     <string name="register">צור/צרי חשבון חדש</string>
-<!--    -->
+    <!--    -->
 
-<!--    NewProblemDetailsFragment-->
+    <!--    NewProblemDetailsFragment-->
     <string name="car_type_hint">סוג הרכב</string>
     <string name="license_plate_hint">לוחית רישוי</string>
     <string name="user_name_hint">איך קוראים לך?</string>
     <string name="phone_number_hint">איך אפשר להשיג אותך?</string>
     <string name="car_image_text">תמונה של הרכב</string>
     <string name="create_problem_text">צור מקרה</string>
-<!--    -->
+    <!--    -->
 
-<!--    NewProblemLocationFragment-->
+    <!--    NewProblemLocationFragment-->
     <string name="continue_btn_text">המשך</string>
-<!--    -->
+    <!--    -->
 
-<!--    ProblemDetailsFragment-->
+    <!--    ProblemDetailsFragment-->
     <string name="contact_details"><u>פרטים ליצירת קשר</u></string>
     <string name="user_name">שם:</string>
     <string name="phone_number">טלפון:</string>
@@ -52,18 +53,18 @@
     <string name="car_type">סוג הרכב:</string>
     <string name="license_plate">לוחית רישוי:</string>
     <string name="help_btn_text">סייע</string>
-<!--    -->
+    <!--    -->
 
-<!--    RegisterFragment-->
+    <!--    RegisterFragment-->
     <string name="register_title">הרשמה</string>
     <string name="email_hint">אימייל</string>
     <string name="password_hint">סיסמה</string>
     <string name="repassword_hint">אמת סיסמה</string>
     <string name="register_btn_text">בצע הרשמה</string>
-<!--    -->
+    <!--    -->
 
-<!--    EditMyProblemFragment-->
+    <!--    EditMyProblemFragment-->
     <string name="confirm_btn_text">אישור</string>
-<!--    -->
+    <!--    -->
 
 </resources>

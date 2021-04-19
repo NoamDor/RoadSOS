@@ -1,6 +1,7 @@
 package com.example.roadsos.ui.authentication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
+    private SharedPreferences sharedpreferences;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -45,6 +47,7 @@ public class LoginFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        sharedpreferences=getActivity().getSharedPreferences("Preferences", 0);
 
         TextInputEditText emailEt = view.findViewById(R.id.login_email_et);
         TextInputEditText passwordEt = view.findViewById(R.id.login_password_et);
@@ -75,8 +78,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("LOGIN", user.getUid());
+                            editor.commit();
+
                             Intent i = new Intent(getActivity(), MainActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);

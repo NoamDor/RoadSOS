@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class RegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
+    View view;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -41,7 +44,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        view = inflater.inflate(R.layout.fragment_register, container, false);
 
         TextInputLayout emailLayout = view.findViewById(R.id.register_email_layout);
         TextInputEditText emailEt = view.findViewById(R.id.edit_my_problem_name_et);
@@ -93,9 +96,10 @@ public class RegisterFragment extends Fragment {
                                                 if (task.isSuccessful()) {
                                                     // Sign in success, update UI with the signed-in user's information
                                                     Log.d("TAG", "createUserWithEmail:success");
-                                                    Intent i = new Intent(getActivity(), MainActivity.class);
-                                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                                    startActivity(i);
+                                                    Toast.makeText(getActivity(), "נרשמת בהצלחה",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    NavController navCtrl = Navigation.findNavController(view);
+                                                    navCtrl.popBackStack();
                                                 }
                                             }
                                         });
