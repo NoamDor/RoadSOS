@@ -99,35 +99,53 @@ public class NewProblemDetailsFragment extends Fragment {
     private void saveProblem() {
         String carType = this.carTypeEditText.getText().toString();
         String licensePlate = this.licensePlateEditText.getText().toString();
+        String regexpLicensePlate = "^[0-9]{7,8}$";
         String userName = this.userNameEditText.getText().toString();
         String phoneNumber = this.phoneNumberEditText.getText().toString();
+        String regexpPhoneNumber = "^[0-9]{10}$";
         Date date = new Date();
 
         if (carType.length() == 0 || licensePlate.length() == 0 || userName.length() == 0 || phoneNumber.length() == 0) {
-            Toast.makeText(getActivity(), "אנא מלא את כל הפרטים", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "אנא מלא/י את כל הפרטים", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        StoreModel.uploadImage(imageBitmap, userName + date.getTime(), new StoreModel.Listener() {
-            @Override
-            public void onSuccess(String url) {
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Problem problem = new Problem(uid, problemLocation, problemType, carType, licensePlate, userName, phoneNumber, url);
-                ProblemModel.instance.addProblem(problem, new ProblemModel.Listener<Boolean>() {
-                    @Override
-                    public void onComplete(Boolean data) {
-                        NavController navCtrl = Navigation.findNavController(view);
-                        NavDirections direction = NewProblemDetailsFragmentDirections.actionNewProblemDetailsFragmentToNavigationHome();
-                        navCtrl.navigate(direction);
-                    }
-                });
-            }
+        if (!licensePlate.matches(regexpLicensePlate)) {
+            Toast.makeText(getActivity(), "אנא מלא/י לוחית רישוי תקינה", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            @Override
-            public void onFail() {
+        if (!phoneNumber.matches(regexpPhoneNumber)) {
+            Toast.makeText(getActivity(), "אנא מלא/י מספר טלפון תקין", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            }
-        });
+        if (imageBitmap == null) {
+            Toast.makeText(getActivity(), "נדרש לצלם תמונה ביצירת מקרה", Toast.LENGTH_SHORT).show();
+            return;
+
+        } else {
+            StoreModel.uploadImage(imageBitmap, userName + date.getTime(), new StoreModel.Listener() {
+                @Override
+                public void onSuccess(String url) {
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Problem problem = new Problem(uid, problemLocation, problemType, carType, licensePlate, userName, phoneNumber, url);
+                    ProblemModel.instance.addProblem(problem, new ProblemModel.Listener<Boolean>() {
+                        @Override
+                        public void onComplete(Boolean data) {
+                            NavController navCtrl = Navigation.findNavController(view);
+                            NavDirections direction = NewProblemDetailsFragmentDirections.actionNewProblemDetailsFragmentToNavigationHome();
+                            navCtrl.navigate(direction);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            });
+        }
     }
 
     @Override

@@ -60,7 +60,7 @@
             android:id="@+id/edit_my_problem_phone_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +106,7 @@
             android:id="@+id/edit_my_problem_license_plate_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 

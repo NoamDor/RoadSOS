@@ -65,11 +65,23 @@ public class EditMyProblemFragment extends Fragment {
     public void editProblem() {
         String carType = this.carTypeEt.getText().toString();
         String licensePlate = this.licensePlateEt.getText().toString();
+        String regexpLicensePlate = "^[0-9]{7,8}$";
         String userName = this.nameEt.getText().toString();
         String phoneNumber = this.phoneEt.getText().toString();
+        String regexpPhoneNumber = "^[0-9]{10}$";
 
         if (carType.length() == 0 || licensePlate.length() == 0 || userName.length() == 0 || phoneNumber.length() == 0) {
             Toast.makeText(getActivity(), "אנא מלא את כל הפרטים", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!licensePlate.matches(regexpLicensePlate)) {
+            Toast.makeText(getActivity(), "אנא מלא/י לוחית רישוי תקינה", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!phoneNumber.matches(regexpPhoneNumber)) {
+            Toast.makeText(getActivity(), "אנא מלא/י מספר טלפון תקין", Toast.LENGTH_SHORT).show();
             return;
         }
 
